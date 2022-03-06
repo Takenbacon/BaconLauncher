@@ -1,0 +1,15 @@
+﻿<mah:MetroWindow x:Class="BaconLauncher.Windows.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:BaconLauncher.Windows"
+        mc:Ignorable="d"
+        Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+        Title="Settings" Height="250" Width="400" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Height="222" VerticalAlignment="Top" HorizontalAlignment="Left" Width="400">
+        <mah:ToggleSwitch x:Name="CloseLauncherOnGameStartToggleSwitch" Header="Close launcher on game start" HorizontalAlignment="Left" Height="58" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" Toggled="CloseLauncherOnGameStartToggled"/>
+
+    </Grid>
+</mah:MetroWindow>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -58,7 +58,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>BaconLauncher.App</StartupObject>
@@ -119,6 +119,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Windows\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Windows\ProfileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,6 +146,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Profile\Profile.cs" />
@@ -172,18 +181,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="favicon.ico" />
+    <Resource Include="Assets\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ExpansionIcons\bfa_icon.png" />
-    <Resource Include="ExpansionIcons\cata_icon.png" />
-    <Resource Include="ExpansionIcons\legion_icon.png" />
-    <Resource Include="ExpansionIcons\mop_icon.png" />
-    <Resource Include="ExpansionIcons\shadowlands_icon.png" />
-    <Resource Include="ExpansionIcons\tbc_icon.png" />
-    <Resource Include="ExpansionIcons\vanilla_icon.png" />
-    <Resource Include="ExpansionIcons\wod_icon.png" />
-    <Resource Include="ExpansionIcons\wotlk_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\bfa_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\cata_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\legion_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\mop_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\shadowlands_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\tbc_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\vanilla_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\wod_icon.png" />
+    <Resource Include="Assets\ExpansionIcons\wotlk_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -196,6 +205,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\settings_icon_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.5\build\Fody.targets')" />

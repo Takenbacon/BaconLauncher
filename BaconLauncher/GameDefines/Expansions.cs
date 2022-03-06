@@ -23,15 +23,15 @@ namespace BaconLauncher.GameDefines
     {
         public static readonly string[] LookupTable = new string[]
         {
-            "ExpansionIcons/vanilla_icon.png",
-            "ExpansionIcons/tbc_icon.png",
-            "ExpansionIcons/wotlk_icon.png",
-            "ExpansionIcons/cata_icon.png",
-            "ExpansionIcons/mop_icon.png",
-            "ExpansionIcons/wod_icon.png",
-            "ExpansionIcons/legion_icon.png",
-            "ExpansionIcons/bfa_icon.png",
-            "ExpansionIcons/shadowlands_icon.png"
+            "Assets/ExpansionIcons/vanilla_icon.png",
+            "Assets/ExpansionIcons/tbc_icon.png",
+            "Assets/ExpansionIcons/wotlk_icon.png",
+            "Assets/ExpansionIcons/cata_icon.png",
+            "Assets/ExpansionIcons/mop_icon.png",
+            "Assets/ExpansionIcons/wod_icon.png",
+            "Assets/ExpansionIcons/legion_icon.png",
+            "Assets/ExpansionIcons/bfa_icon.png",
+            "Assets/ExpansionIcons/shadowlands_icon.png"
         };
     }
 }

@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using BaconLauncher.Windows;
+using BaconLauncher.Settings;
 
 namespace BaconLauncher
 {
@@ -29,6 +31,7 @@ namespace BaconLauncher
         {
             InitializeComponent();
 
+            SettingsManager.Instance.LoadSettings();
             ProfileManager.Instance.LoadProfiles();
         }
 
@@ -36,6 +39,12 @@ namespace BaconLauncher
         {
             ProfileWindow cpw = new ProfileWindow(null);
             cpw.Show();
+        }
+
+        private void OnSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow sw = new SettingsWindow();
+            sw.Show();
         }
 
         private void OnProfileRightClicked(object sender, MouseButtonEventArgs e)
@@ -81,6 +90,9 @@ namespace BaconLauncher
                 }
 
                 Process.Start(profile.ExecutableLocation, profile.CommandLineArguments);
+
+                if (SettingsManager.Instance.Settings.CloseLauncherOnGameStart)
+                    Close();
             }
             catch (Exception)
             {

@@ -9,6 +9,19 @@
         mc:Ignorable="d"
 		Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
         Title="BaconLauncher" UseLayoutRounding="False" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowStyle="None">
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Click="OnSettingsClicked" Content="Settings" Cursor="Hand">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <Image Source="../Assets/settings_icon_white.png" Height="22" Width="22" />
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
     <Window.Resources>
 
         <Style TargetType="local:ProfileTile">
@@ -114,14 +127,14 @@
     </Window.Resources>
 
     <Grid>
-
-        <Button Content="Create Profile" HorizontalAlignment="Left" Margin="10,455,0,0" VerticalAlignment="Top" Width="134" Height="35" Click="OnProfileCreateClicked"/>
+        
         <WrapPanel
                    Width="877"
                    Height="500"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
 				    x:Name="profilesWrapPanel"/>
+        <Button Content="Create Profile" HorizontalAlignment="Left" Margin="10,455,0,0" VerticalAlignment="Top" Width="134" Height="35" Click="OnProfileCreateClicked"/>
 
     </Grid>
 </mah:MetroWindow>
