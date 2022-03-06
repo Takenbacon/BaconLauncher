@@ -51,10 +51,7 @@ namespace BaconLauncher
             editMenuItem.Header = "Edit";
             editMenuItem.Click += delegate
             {
-                Profile profile = ProfileManager.Instance.GetProfileByGuid(profileTile.ProfileGuid);
-                if (profile == null)
-                    return;
-                ProfileWindow cpw = new ProfileWindow(profile);
+                ProfileWindow cpw = new ProfileWindow(profileTile.Profile);
                 cpw.Show();
             };
             contextMenu.Items.Add(editMenuItem);
@@ -64,9 +61,7 @@ namespace BaconLauncher
         private void OnProfileLeftClicked(object sender, RoutedEventArgs e)
         {
             ProfileTile profileTile = sender as ProfileTile;
-            Profile profile = ProfileManager.Instance.GetProfileByGuid(profileTile.ProfileGuid);
-            if (profile == null)
-                return;
+            Profile profile = profileTile.Profile;
 
             try
             {

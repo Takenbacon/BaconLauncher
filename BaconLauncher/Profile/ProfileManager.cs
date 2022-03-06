@@ -28,11 +28,7 @@ namespace BaconLauncher
 
         public void RemoveProfileByTile(ProfileTile profileTile)
         {
-            Profile profile = GetProfileByGuid(profileTile.ProfileGuid);
-            if (profile == null)
-                return;
-
-            ProfileList.Profiles.Remove(profile);
+            ProfileList.Profiles.Remove(profileTile.Profile);
             ((MainWindow)Application.Current.MainWindow).profilesWrapPanel.Children.Remove(profileTile);
 
             SaveAllProfiles();
@@ -72,24 +68,10 @@ namespace BaconLauncher
 
         private ProfileTile CreateProfileTile(Profile profile)
         {
-            ProfileTile profileTile = new ProfileTile(profile.Guid);
+            ProfileTile profileTile = new ProfileTile(profile);
             profileTile.Title = profile.Name;
             profileTile.Image = "..\\" + GameDefines.ExpansionIcons.LookupTable[(int)profile.Expansion];
             return profileTile;
-        }
-
-        public Profile GetProfileByGuid(Guid profileGuid)
-        {
-            // Searching isn't ideal but the amount of profiles would always be so small it's not worth creating a dictionary
-            foreach (Profile profile in ProfileList.Profiles)
-            {
-                if (profile.Guid != profileGuid)
-                    continue;
-
-                return profile;
-            }
-
-            return null;
         }
     }
 }

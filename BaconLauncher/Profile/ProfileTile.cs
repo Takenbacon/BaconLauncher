@@ -10,11 +10,11 @@ namespace BaconLauncher
 {
     public class ProfileTile : Tile
     {
-        public readonly Guid ProfileGuid;
+        public readonly Profile Profile;
 
-        public ProfileTile(Guid profileGuid)
+        public ProfileTile(Profile profile)
         {
-            ProfileGuid = profileGuid;
+            Profile = profile;
         }
 
         public static readonly DependencyProperty ImageProperty

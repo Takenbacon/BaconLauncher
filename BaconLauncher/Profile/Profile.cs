@@ -21,13 +21,6 @@ namespace BaconLauncher
 
     public class Profile
     {
-        public Profile()
-        {
-            Guid = Guid.NewGuid();
-        }
-
-        public readonly Guid Guid;
-
         [XmlElement("Name")]
         public string Name { get; set; }
         [XmlElement("Realmlist")]

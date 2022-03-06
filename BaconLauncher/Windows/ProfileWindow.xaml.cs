@@ -18,15 +18,15 @@ namespace BaconLauncher
 {
     public partial class ProfileWindow : MetroWindow
     {
-        private Profile CurrentProfile { get; set; }
+        private Profile EditingProfile { get; set; }
 
         public ProfileWindow(Profile profile = null)
         {
             InitializeComponent();
 
-            CurrentProfile = profile;
+            EditingProfile = profile;
 
-            if (CurrentProfile == null)
+            if (EditingProfile == null)
             {
                 // Creating a profile
                 Title = "Create Profile";
@@ -57,7 +57,7 @@ namespace BaconLauncher
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Profile profile = CurrentProfile;
+            Profile profile = EditingProfile;
             if (profile == null)
                 profile = new Profile();
 
@@ -67,14 +67,14 @@ namespace BaconLauncher
             profile.CommandLineArguments = CommandLineArgumentsTextBox.Text;
             profile.Realmlist = RealmlistTextBox.Text;
 
-            if (CurrentProfile == null)
+            if (EditingProfile == null)
                 ProfileManager.Instance.AddProfile(profile);
             else
             {
                 // Update Tile
                 foreach (ProfileTile profileTile in ((MainWindow)Application.Current.MainWindow).profilesWrapPanel.Children)
                 {
-                    if (profileTile.ProfileGuid != profile.Guid)
+                    if (profileTile.Profile != profile)
                         continue;
 
                     profileTile.Title = profile.Name;
