@@ -80,7 +80,7 @@ namespace BaconLauncher
 
                     if (Directory.Exists(localePath) && File.Exists(realmlistFile))
                     {
-                        using (StreamWriter writer = new StreamWriter(localePath + realmlistFile, false))
+                        using (StreamWriter writer = new StreamWriter(realmlistFile, false))
                             writer.Write("set realmlist " + profile.Realmlist);
                     }
                 }
