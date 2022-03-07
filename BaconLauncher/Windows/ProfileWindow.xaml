@@ -19,17 +19,17 @@
 		</ObjectDataProvider>
 	</Window.Resources>
 	<Grid HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="627">
-		<Label Content="Executable Location:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
+        <Label Content="Profile Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <TextBox x:Name="ProfileNameTextBox" HorizontalAlignment="Left" Height="30" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" />
+        <Label Content="Realmlist:" HorizontalAlignment="Left" Margin="256,10,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="RealmlistTextBox" HorizontalAlignment="Left" Height="30" Margin="256,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" />
+        <Label Content="Expansion:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="503,10,0,0" />
+        <ComboBox x:Name="ExpansionsComboBox" HorizontalAlignment="Left" Margin="503,40,0,0" VerticalAlignment="Top" Width="111" Height="30" ItemsSource="{Binding Source={StaticResource xpacEnumValues}}" />
+        <Label Content="Executable Location:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
 		<TextBox x:Name="executableLocationTextBox" HorizontalAlignment="Left" Height="30" Margin="10,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="524"/>
-		<Button x:Name="FindButton" Content="Find" HorizontalAlignment="Left" Margin="539,105,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="FindButton_Click" />
-		<Label Content="Profile Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-		<TextBox x:Name="ProfileNameTextBox" HorizontalAlignment="Left" Height="30" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" />
-		<Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="SaveButton_Click"/>
-		<ComboBox x:Name="ExpansionsComboBox" HorizontalAlignment="Left" Margin="503,40,0,0" VerticalAlignment="Top" Width="111" Height="30" ItemsSource="{Binding Source={StaticResource xpacEnumValues}}" />
-		<Label Content="Expansion:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="503,10,0,0" />
-		<Label Content="Optional Command line arguments:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" />
-		<TextBox x:Name="CommandLineArgumentsTextBox" HorizontalAlignment="Left" Height="30" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="524" />
-		<Label Content="Realmlist:" HorizontalAlignment="Left" Margin="256,10,0,0" VerticalAlignment="Top" />
-		<TextBox x:Name="RealmlistTextBox" HorizontalAlignment="Left" Height="30" Margin="256,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" />
-	</Grid>
+        <Button x:Name="FindButton" Content="Find" HorizontalAlignment="Left" Margin="539,105,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="FindButton_Click" />
+        <Label Content="Optional Command line arguments:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="CommandLineArgumentsTextBox" HorizontalAlignment="Left" Height="30" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="524" />
+        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="SaveButton_Click"/>
+    </Grid>
 </mah:MetroWindow>
