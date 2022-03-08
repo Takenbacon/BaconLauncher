@@ -75,17 +75,48 @@ namespace BaconLauncher
             try
             {
                 string rootPath = System.IO.Path.GetDirectoryName(profile.ExecutableLocation);
-                rootPath += "\\Data";
 
-                foreach (string gameLocale in GameDefines.Locales.LookupTable)
+                if (profile.Expansion >= GameDefines.Expansions.MoP)
                 {
-                    string localePath = rootPath + "\\" + gameLocale;
-                    string realmlistFile = localePath + "\\realmlist.wtf";
+                    // Mop and higher use the /WTF/Config.wtf file for the realmlist
+                    rootPath += "\\WTF";
+                    string realmlistFile = rootPath + "\\Config.wtf";
 
-                    if (Directory.Exists(localePath) && File.Exists(realmlistFile))
+                    if (Directory.Exists(rootPath) && File.Exists(realmlistFile))
                     {
+                        // load the config file into memory
+                        string[] lines = File.ReadAllLines(realmlistFile);
+
+                        // write the config file back without the realm list setting
                         using (StreamWriter writer = new StreamWriter(realmlistFile, false))
-                            writer.Write("set realmlist " + profile.Realmlist);
+                        {
+                            for (int i = 0; i < lines.Length; ++i)
+                            {
+                                string line = lines[i];
+                                if (line.IndexOf("SET realmlist", StringComparison.OrdinalIgnoreCase) == -1)
+                                    writer.WriteLine(line);
+                            }
+
+                            // Write the new realm list setting
+                            writer.WriteLine("SET realmlist \"" + profile.Realmlist + "\"");
+                        }
+                    }
+                }
+                else
+                {
+                    // Cata and lower use the /data/locale/realmlist.wtf file
+                    rootPath += "\\Data";
+
+                    foreach (string gameLocale in GameDefines.Locales.LookupTable)
+                    {
+                        string localePath = rootPath + "\\" + gameLocale;
+                        string realmlistFile = localePath + "\\realmlist.wtf";
+
+                        if (Directory.Exists(localePath) && File.Exists(realmlistFile))
+                        {
+                            using (StreamWriter writer = new StreamWriter(realmlistFile, false))
+                                writer.Write("SET realmlist " + profile.Realmlist);
+                        }
                     }
                 }
 
