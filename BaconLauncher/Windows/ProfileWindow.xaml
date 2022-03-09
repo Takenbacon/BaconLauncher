@@ -26,10 +26,11 @@
         <Label Content="Expansion:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="503,10,0,0" />
         <ComboBox x:Name="ExpansionsComboBox" HorizontalAlignment="Left" Margin="503,40,0,0" VerticalAlignment="Top" Width="111" Height="30" ItemsSource="{Binding Source={StaticResource xpacEnumValues}}" />
         <Label Content="Executable Location:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
-		<TextBox x:Name="executableLocationTextBox" HorizontalAlignment="Left" Height="30" Margin="10,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="524"/>
+		<TextBox x:Name="executableLocationTextBox" HorizontalAlignment="Left" Height="30" Margin="10,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="524" TextChanged="executableLocationTextBox_TextChanged"/>
         <Button x:Name="FindButton" Content="Find" HorizontalAlignment="Left" Margin="539,105,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="FindButton_Click" />
         <Label Content="Optional Command line arguments:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="CommandLineArgumentsTextBox" HorizontalAlignment="Left" Height="30" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="524" />
-        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="SaveButton_Click"/>
+        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="SaveButton_Click" />
+        <Label x:Name="ErrorLabel" Margin="0,0,0,40" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="Red" FontSize="14"/>
     </Grid>
 </mah:MetroWindow>

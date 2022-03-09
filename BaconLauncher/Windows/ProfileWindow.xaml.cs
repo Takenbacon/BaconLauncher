@@ -2,6 +2,8 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +59,12 @@ namespace BaconLauncher
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsValidWorldOfWarcraftExecutable(executableLocationTextBox.Text))
+            {
+                ErrorFromTextBox(executableLocationTextBox, "Invalid World of Warcraft executable.");
+                return;
+            }
+
             Profile profile = EditingProfile;
             if (profile == null)
                 profile = new Profile();
@@ -86,6 +94,37 @@ namespace BaconLauncher
             }
 
             Close();
+        }
+
+        private bool IsValidWorldOfWarcraftExecutable(string executableLocation)
+        {
+            try
+            {
+                FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(executableLocation);
+                if (fileVersionInfo.ProductName != "World of Warcraft")
+                    return false;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ErrorFromTextBox(TextBox erroredTextbox, string errorString)
+        {
+            erroredTextbox.BorderBrush = Brushes.Red;
+            ErrorLabel.Content = errorString;
+        }
+
+        private void executableLocationTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (executableLocationTextBox.BorderBrush == Brushes.Red)
+            {
+                executableLocationTextBox.ClearValue(Border.BorderBrushProperty);
+                ErrorLabel.Content = "";
+            }
         }
     }
 }
