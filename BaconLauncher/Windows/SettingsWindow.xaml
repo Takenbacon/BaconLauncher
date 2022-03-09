@@ -10,6 +10,7 @@
         Title="Settings" Height="250" Width="400" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Height="222" VerticalAlignment="Top" HorizontalAlignment="Left" Width="400">
         <mah:ToggleSwitch x:Name="CloseLauncherOnGameStartToggleSwitch" Header="Close launcher on game start" HorizontalAlignment="Left" Height="58" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" Toggled="CloseLauncherOnGameStartToggled"/>
+        <mah:ToggleSwitch x:Name="AutoClearGameCacheToggleSwitch" Header="Clear game cache on game start" HorizontalAlignment="Left" Height="58" Margin="10,68,0,0" VerticalAlignment="Top" Width="219" Toggled="AutoClearGameCacheToggled"/>
 
     </Grid>
 </mah:MetroWindow>

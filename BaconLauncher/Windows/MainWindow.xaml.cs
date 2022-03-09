@@ -50,21 +50,39 @@ namespace BaconLauncher
         private void OnProfileRightClicked(object sender, MouseButtonEventArgs e)
         {
             ProfileTile profileTile = sender as ProfileTile;
+            string cacheFilePath = System.IO.Path.GetDirectoryName(profileTile.Profile.ExecutableLocation) + "\\Cache";
 
             ContextMenu contextMenu = new ContextMenu();
-            MenuItem removeMenuItem = new MenuItem();
-            removeMenuItem.Header = "Remove";
-            removeMenuItem.Click += delegate { ProfileManager.Instance.RemoveProfileByTile(profileTile); };
-            contextMenu.Items.Add(removeMenuItem);
-            MenuItem editMenuItem = new MenuItem();
-            editMenuItem.Header = "Edit";
-            editMenuItem.Click += delegate
             {
-                ProfileWindow cpw = new ProfileWindow(profileTile.Profile);
-                cpw.Show();
-            };
-            contextMenu.Items.Add(editMenuItem);
+                MenuItem clearCacheMenuItem = new MenuItem();
+                clearCacheMenuItem.Header = "Clear Game Cache";
+                if (!Directory.Exists(cacheFilePath))
+                    clearCacheMenuItem.IsEnabled = false;
+                clearCacheMenuItem.Click += delegate { ClearGameCache(cacheFilePath); };
+                contextMenu.Items.Add(clearCacheMenuItem);
+            }
+            {
+                MenuItem removeMenuItem = new MenuItem();
+                removeMenuItem.Header = "Remove";
+                removeMenuItem.Click += delegate { ProfileManager.Instance.RemoveProfileByTile(profileTile); };
+                contextMenu.Items.Add(removeMenuItem);
+            }
+            {
+                MenuItem editMenuItem = new MenuItem();
+                editMenuItem.Header = "Edit";
+                editMenuItem.Click += delegate
+                {
+                    ProfileWindow cpw = new ProfileWindow(profileTile.Profile);
+                    cpw.Show();
+                };
+                contextMenu.Items.Add(editMenuItem);
+            }
             contextMenu.IsOpen = true;
+        }
+
+        private void ClearGameCache(string cacheLocation)
+        {
+            Directory.Delete(cacheLocation, true);
         }
 
         private void OnProfileLeftClicked(object sender, RoutedEventArgs e)
@@ -75,6 +93,9 @@ namespace BaconLauncher
             try
             {
                 string rootPath = System.IO.Path.GetDirectoryName(profile.ExecutableLocation);
+
+                if (SettingsManager.Instance.Settings.AutoClearGameCache)
+                    ClearGameCache(rootPath + "\\Cache");
 
                 if (profile.Expansion >= GameDefines.Expansions.MoP)
                 {

@@ -14,9 +14,12 @@ namespace BaconLauncher.Settings
         {
             // Default settings
             CloseLauncherOnGameStart = false;
+            AutoClearGameCache = false;
         }
 
         [XmlElement("CloseLauncherOnGameStart")]
         public bool CloseLauncherOnGameStart { get; set; }
+        [XmlElement("AutoClearGameCache")]
+        public bool AutoClearGameCache { get; set; }
     }
 }

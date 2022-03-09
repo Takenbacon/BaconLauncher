@@ -26,6 +26,7 @@ namespace BaconLauncher.Windows
             InitializeComponent();
 
             CloseLauncherOnGameStartToggleSwitch.IsOn = SettingsManager.Instance.Settings.CloseLauncherOnGameStart;
+            AutoClearGameCacheToggleSwitch.IsOn = SettingsManager.Instance.Settings.AutoClearGameCache;
         }
 
         private void CloseLauncherOnGameStartToggled(object sender, RoutedEventArgs e)
@@ -33,6 +34,15 @@ namespace BaconLauncher.Windows
             ToggleSwitch toggleSwitch = sender as ToggleSwitch;
             if (toggleSwitch != null)
                 SettingsManager.Instance.Settings.CloseLauncherOnGameStart = toggleSwitch.IsOn;
+
+            SettingsManager.Instance.SaveSettings();
+        }
+
+        private void AutoClearGameCacheToggled(object sender, RoutedEventArgs e)
+        {
+            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            if (toggleSwitch != null)
+                SettingsManager.Instance.Settings.AutoClearGameCache = toggleSwitch.IsOn;
 
             SettingsManager.Instance.SaveSettings();
         }
