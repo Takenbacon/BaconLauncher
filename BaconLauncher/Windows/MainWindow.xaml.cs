@@ -50,22 +50,22 @@ namespace BaconLauncher
         private void OnProfileRightClicked(object sender, MouseButtonEventArgs e)
         {
             ProfileTile profileTile = sender as ProfileTile;
-            string cacheFilePath = System.IO.Path.GetDirectoryName(profileTile.Profile.ExecutableLocation) + "\\Cache";
+            string filePath = System.IO.Path.GetDirectoryName(profileTile.Profile.ExecutableLocation);
 
             ContextMenu contextMenu = new ContextMenu();
             {
-                MenuItem clearCacheMenuItem = new MenuItem();
-                clearCacheMenuItem.Header = "Clear Game Cache";
-                if (!Directory.Exists(cacheFilePath))
-                    clearCacheMenuItem.IsEnabled = false;
-                clearCacheMenuItem.Click += delegate { ClearGameCache(cacheFilePath); };
-                contextMenu.Items.Add(clearCacheMenuItem);
+                MenuItem openFileLocationMenuItem = new MenuItem();
+                openFileLocationMenuItem.Header = "Open File Location";
+                openFileLocationMenuItem.Click += delegate { Process.Start("explorer.exe", filePath); };
+                contextMenu.Items.Add(openFileLocationMenuItem);
             }
             {
-                MenuItem removeMenuItem = new MenuItem();
-                removeMenuItem.Header = "Remove";
-                removeMenuItem.Click += delegate { ProfileManager.Instance.RemoveProfileByTile(profileTile); };
-                contextMenu.Items.Add(removeMenuItem);
+                MenuItem clearCacheMenuItem = new MenuItem();
+                clearCacheMenuItem.Header = "Clear Game Cache";
+                if (!Directory.Exists(filePath + "\\Cache"))
+                    clearCacheMenuItem.IsEnabled = false;
+                clearCacheMenuItem.Click += delegate { ClearGameCache(filePath + "\\Cache"); };
+                contextMenu.Items.Add(clearCacheMenuItem);
             }
             {
                 MenuItem editMenuItem = new MenuItem();
@@ -76,6 +76,12 @@ namespace BaconLauncher
                     cpw.Show();
                 };
                 contextMenu.Items.Add(editMenuItem);
+            }
+            {
+                MenuItem removeMenuItem = new MenuItem();
+                removeMenuItem.Header = "Remove";
+                removeMenuItem.Click += delegate { ProfileManager.Instance.RemoveProfileByTile(profileTile); };
+                contextMenu.Items.Add(removeMenuItem);
             }
             contextMenu.IsOpen = true;
         }
