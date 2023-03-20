@@ -10,27 +10,50 @@
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="BaconLauncher.ProfileWindow"
         mc:Ignorable="d"
 		Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
-        Title="Profile" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-	<Window.Resources>
-		<ObjectDataProvider x:Key="xpacEnumValues" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
-			<ObjectDataProvider.MethodParameters>
+        Title="Profile" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="542">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="xpacEnumValues" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="gamedefines:Expansions"/>
-			</ObjectDataProvider.MethodParameters>
-		</ObjectDataProvider>
-	</Window.Resources>
-	<Grid HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="627">
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid HorizontalAlignment="Left" Height="380" VerticalAlignment="Center" Width="545">
         <Label Content="Profile Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <TextBox x:Name="ProfileNameTextBox" HorizontalAlignment="Left" Height="30" Margin="10,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" />
-        <Label Content="Realmlist:" HorizontalAlignment="Left" Margin="256,10,0,0" VerticalAlignment="Top" />
-        <TextBox x:Name="RealmlistTextBox" HorizontalAlignment="Left" Height="30" Margin="256,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" />
-        <Label Content="Expansion:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="503,10,0,0" />
-        <ComboBox x:Name="ExpansionsComboBox" HorizontalAlignment="Left" Margin="503,40,0,0" VerticalAlignment="Top" Width="111" Height="30" ItemsSource="{Binding Source={StaticResource xpacEnumValues}}" />
+        <Label Content="Icon:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,10,0,0"/>
+        <Label Content="Border Color:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="244,10,0,0"/>
+        <mah:ColorPicker x:Name="BorderColor"
+                                     mah:TextBoxHelper.AutoWatermark="True"
+                                     mah:TextBoxHelper.ClearTextButton="True"
+                                     mah:TextBoxHelper.UseFloatingWatermark="False"
+                                     mah:TextBoxHelper.Watermark="Select a color"
+                                     AddToRecentColorsTrigger="{Binding ElementName=cmbAddToRecentTrigger, Path=SelectedItem.Tag}"
+                                     
+                                     SelectedColor="{Binding ElementName=ColorCanvasExample, Path=SelectedColor}" Margin="244,40,160,310" Height="30" />
         <Label Content="Executable Location:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
-		<TextBox x:Name="executableLocationTextBox" HorizontalAlignment="Left" Height="30" Margin="10,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="524" TextChanged="executableLocationTextBox_TextChanged"/>
-        <Button x:Name="FindButton" Content="Find" HorizontalAlignment="Left" Margin="539,105,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="FindButton_Click" />
+        <TextBox x:Name="executableLocationTextBox" HorizontalAlignment="Left" Height="30" Margin="10,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="438" TextChanged="executableLocationTextBox_TextChanged"/>
+        <Button x:Name="FindButton" Content="Find" HorizontalAlignment="Left" Margin="459,105,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="FindButton_Click" />
         <Label Content="Optional Command line arguments:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="CommandLineArgumentsTextBox" HorizontalAlignment="Left" Height="30" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="524" />
         <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="87" Height="33" Click="SaveButton_Click" />
-        <Label x:Name="ErrorLabel" Margin="0,0,0,40" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="Red" FontSize="14"/>
+        <Label x:Name="ErrorLabel" Margin="110,0,0,20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="Red" FontSize="14" />
+        <GroupBox x:Name="WoWSpecificSettingsGroupBox" Header="Application specific settings" Margin="10,213,11,58" Visibility="Visible">
+            <Grid>
+                <Label Content="Realmlist:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-5,0,0" />
+                <TextBox x:Name="RealmlistTextBox" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Center" Width="214" />
+                <Label Content="Expansion:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="235,-5,0,0" />
+                <ComboBox x:Name="ExpansionsComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="110" Height="30" ItemsSource="{Binding Source={StaticResource xpacEnumValues}}" Margin="235,0,0,0" />
+            </Grid>
+        </GroupBox>
+        <Image x:Name="IconImage" Style="{StaticResource ImageStyle}" HorizontalAlignment="Left" Height="90" Margin="450,10,0,0" VerticalAlignment="Top" Width="84" MouseLeftButtonDown="OnIconClicked" />
     </Grid>
 </mah:MetroWindow>

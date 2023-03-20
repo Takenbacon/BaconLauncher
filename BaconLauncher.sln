@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29318.209
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaconLauncher", "BaconLauncher\BaconLauncher.csproj", "{7886C6A3-E0D3-44EF-A116-0035DA9ECA2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaconLauncher", "BaconLauncher\BaconLauncher.csproj", "{4B54596F-2972-4099-9613-805C3D3497B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7886C6A3-E0D3-44EF-A116-0035DA9ECA2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7886C6A3-E0D3-44EF-A116-0035DA9ECA2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7886C6A3-E0D3-44EF-A116-0035DA9ECA2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7886C6A3-E0D3-44EF-A116-0035DA9ECA2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B54596F-2972-4099-9613-805C3D3497B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B54596F-2972-4099-9613-805C3D3497B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B54596F-2972-4099-9613-805C3D3497B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B54596F-2972-4099-9613-805C3D3497B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C8C8C34D-42C7-4785-9976-11F904855C3A}
+		SolutionGuid = {602C0A57-0307-49B9-A8E4-777D1769B3A1}
 	EndGlobalSection
 EndGlobal

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Xml;
-using System.Xml.Serialization;
+using System.Windows.Media;
+using BaconLauncher.Config;
 using MahApps.Metro.Controls;
 
 namespace BaconLauncher
@@ -14,55 +14,30 @@ namespace BaconLauncher
     {
         public static ProfileManager Instance { get; protected set; } = new ProfileManager();
 
-        private ProfileList ProfileList = new ProfileList();
-
         public void AddProfile(Profile profile)
         {
-            ProfileList.Profiles.Add(profile);
+            ConfigManager.Instance.Config.Profiles.Add(profile);
 
             ProfileTile profileTile = CreateProfileTile(profile);
             ((MainWindow)Application.Current.MainWindow).profilesWrapPanel.Children.Add(profileTile);
 
-            SaveAllProfiles();
+            ConfigManager.Instance.SaveConfig();
         }
 
         public void RemoveProfileByTile(ProfileTile profileTile)
         {
-            ProfileList.Profiles.Remove(profileTile.Profile);
+            ConfigManager.Instance.Config.Profiles.Remove(profileTile.Profile);
             ((MainWindow)Application.Current.MainWindow).profilesWrapPanel.Children.Remove(profileTile);
 
-            SaveAllProfiles();
-        }
-
-        public void SaveAllProfiles()
-        {
-            using (XmlTextWriter xmlTextWriter = new XmlTextWriter("profiles.xml", Encoding.UTF8))
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(ProfileList));
-
-                serializer.Serialize(xmlTextWriter, ProfileList);
-            }
+            ConfigManager.Instance.SaveConfig();
         }
 
         public void LoadProfiles()
         {
-            using (XmlTextReader xmlTextReader = new XmlTextReader("profiles.xml"))
+            foreach (Profile profile in ConfigManager.Instance.Config.Profiles)
             {
-                XmlSerializer deserializer = new XmlSerializer(typeof(ProfileList));
-
-                try
-                {
-                    ProfileList = (ProfileList)deserializer.Deserialize(xmlTextReader);
-                } catch (SystemException)
-                {
-
-                }
-
-                foreach (Profile profile in ProfileList.Profiles)
-                {
-                    ProfileTile profileTile = CreateProfileTile(profile);
-                    ((MainWindow)Application.Current.MainWindow).profilesWrapPanel.Children.Add(profileTile);
-                }
+                ProfileTile profileTile = CreateProfileTile(profile);
+                ((MainWindow)Application.Current.MainWindow).profilesWrapPanel.Children.Add(profileTile);
             }
         }
 
@@ -70,7 +45,14 @@ namespace BaconLauncher
         {
             ProfileTile profileTile = new ProfileTile(profile);
             profileTile.Title = profile.Name;
-            profileTile.Image = "..\\" + GameDefines.ExpansionIcons.LookupTable[(int)profile.Expansion];
+            profileTile.Image = profile.Icon;
+
+            if (profile.BorderColor != String.Empty && profile.BorderColor != null)
+            {
+                Color? borderColor = ColorHelper.ColorFromString(profile.BorderColor, null);
+                profileTile.BorderBrush = new SolidColorBrush(borderColor.Value);
+                profileTile.BorderThickness = new Thickness(1, 1, 1, 1);
+            }
             return profileTile;
         }
     }

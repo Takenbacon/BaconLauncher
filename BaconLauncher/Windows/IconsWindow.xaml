@@ -1,33 +1,18 @@
-﻿<mah:MetroWindow x:Class="BaconLauncher.MainWindow"
+﻿<mah:MetroWindow x:Class="BaconLauncher.Windows.IconsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-		xmlns:mahConverters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
-        xmlns:gamedefines="clr-namespace:BaconLauncher.GameDefines"
-        xmlns:System="clr-namespace:System;assembly=mscorlib"
-		xmlns:local="clr-namespace:BaconLauncher"
+        xmlns:local="clr-namespace:BaconLauncher"
         mc:Ignorable="d"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mahConverters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
 		Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
-        Title="BaconLauncher" UseLayoutRounding="False" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowStyle="None">
-
-    <mah:MetroWindow.RightWindowCommands>
-        <mah:WindowCommands>
-            <Button Click="OnSettingsClicked" Content="Settings" Cursor="Hand">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <Image Source="../Assets/settings_icon_white.png" Height="22" Width="22" />
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
-        </mah:WindowCommands>
-    </mah:MetroWindow.RightWindowCommands>
+        Title="Icons" Height="478" Width="742" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <Style TargetType="local:ProfileTile">
-            <EventSetter Event="MouseRightButtonDown" Handler="OnProfileRightClicked"/>
-            <EventSetter Event="Click" Handler="OnProfileLeftClicked"/>
+        <Style TargetType="local:IconTile">
+            <EventSetter Event="Click" Handler="IconTile_Click"/>
             <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
             <Setter Property="CountFontSize" Value="28" />
             <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
@@ -38,7 +23,7 @@
             <Setter Property="HorizontalTitleAlignment" Value="Right" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="local:ProfileTile">
+                    <ControlTemplate TargetType="local:IconTile">
                         <Grid>
                             <Border x:Name="PART_Border"
                                 Background="{TemplateBinding Background}"
@@ -71,13 +56,13 @@
                                             </AccessText.Effect>
                                         </AccessText>
                                     </Label>
-                                    <Image Source="{Binding Image, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
-                                        <Image.OpacityMask>
+                                    <Image Source="{Binding IconImage, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                        <!--<Image.OpacityMask>
                                             <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
                                                 <GradientStop Color="Transparent" Offset="0"/>
                                                 <GradientStop Color="Black" Offset="1"/>
                                             </LinearGradientBrush>
-                                        </Image.OpacityMask>
+                                        </Image.OpacityMask>-->
                                     </Image>
                                 </Grid>
                             </Border>
@@ -115,7 +100,7 @@
             <Setter Property="mah:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
             <Setter Property="Button.Effect">
                 <Setter.Value>
-                    <DropShadowEffect Color="{Binding DropShadowColor, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" ShadowDepth="0" BlurRadius="30" Opacity="0.8" />
+                    <DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="30" Opacity="0.8" />
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
@@ -124,23 +109,10 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-        <ObjectDataProvider x:Key="xpacEnumValues" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="gamedefines:Expansions"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
     </Window.Resources>
 
     <Grid>
-        <WrapPanel
-                   Width="877"
-                   Height="500"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-				   x:Name="profilesWrapPanel">
-            <!--<local:ProfileTile Title="Create Profile" Image="/Resources/Icons/vanilla_icon.png"></local:ProfileTile>-->
+        <WrapPanel x:Name="iconsWrapPanel">
         </WrapPanel>
-        <Button Content="Create Profile" HorizontalAlignment="Left" Margin="10,455,0,0" VerticalAlignment="Top" Width="134" Height="35" Click="OnProfileCreateClicked"/>
     </Grid>
 </mah:MetroWindow>

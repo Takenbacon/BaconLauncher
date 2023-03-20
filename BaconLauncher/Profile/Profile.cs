@@ -1,35 +1,37 @@
-﻿using System;
+﻿using BaconLauncher;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Text.Json.Serialization;
 
 namespace BaconLauncher
 {
-    [XmlType("Profiles")]
-    public class ProfileList
+    public enum ProfileTypes : int
     {
-        public ProfileList()
-        {
-            Profiles = new List<Profile>();
-        }
+        Generic,
+        WorldOfWarcraft
+    }
 
-        [XmlElement("Profile")]
-        public List<Profile> Profiles { get; set; }
+    [JsonDerivedType(typeof(WorldOfWarcraftSettings), (int)ProfileTypes.WorldOfWarcraft)]
+    public class ApplicationSpecificSettings
+    {
+    }
+
+    public class WorldOfWarcraftSettings : ApplicationSpecificSettings
+    {
+        public string Realmlist { get; set; } = string.Empty;
+        public GameDefines.Expansions Expansion { get; set; }
     }
 
     public class Profile
     {
-        [XmlElement("Name")]
-        public string Name { get; set; }
-        [XmlElement("Realmlist")]
-        public string Realmlist { get; set; }
-        [XmlElement("Expansion")]
-        public GameDefines.Expansions Expansion { get; set; }
-        [XmlElement("ExecutableLocation")]
-        public string ExecutableLocation { get; set; }
-        [XmlElement("CommandLineArguments")]
-        public string CommandLineArguments { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string BorderColor { get; set; } = string.Empty;
+        public string Icon { get; set; } = string.Empty;
+        public string ExecutableLocation { get; set; } = string.Empty;
+        public string CommandLineArguments { get; set; } = string.Empty;
+        public ApplicationSpecificSettings ApplicationSpecificSettings { get; set; } = null;
     }
 }

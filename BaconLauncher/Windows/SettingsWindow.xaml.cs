@@ -1,4 +1,4 @@
-﻿using BaconLauncher.Settings;
+﻿
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
@@ -25,26 +25,26 @@ namespace BaconLauncher.Windows
         {
             InitializeComponent();
 
-            CloseLauncherOnGameStartToggleSwitch.IsOn = SettingsManager.Instance.Settings.CloseLauncherOnGameStart;
-            AutoClearGameCacheToggleSwitch.IsOn = SettingsManager.Instance.Settings.AutoClearGameCache;
+            //CloseLauncherOnGameStartToggleSwitch.IsOn = SettingsManager.Instance.Settings.CloseLauncherOnGameStart;
+            //AutoClearGameCacheToggleSwitch.IsOn = SettingsManager.Instance.Settings.AutoClearGameCache;
         }
 
         private void CloseLauncherOnGameStartToggled(object sender, RoutedEventArgs e)
         {
-            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            /*ToggleSwitch toggleSwitch = sender as ToggleSwitch;
             if (toggleSwitch != null)
                 SettingsManager.Instance.Settings.CloseLauncherOnGameStart = toggleSwitch.IsOn;
 
-            SettingsManager.Instance.SaveSettings();
+            SettingsManager.Instance.SaveSettings();*/
         }
 
         private void AutoClearGameCacheToggled(object sender, RoutedEventArgs e)
         {
-            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            /*ToggleSwitch toggleSwitch = sender as ToggleSwitch;
             if (toggleSwitch != null)
                 SettingsManager.Instance.Settings.AutoClearGameCache = toggleSwitch.IsOn;
 
-            SettingsManager.Instance.SaveSettings();
+            SettingsManager.Instance.SaveSettings();*/
         }
     }
 }

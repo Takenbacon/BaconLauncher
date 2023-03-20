@@ -12,6 +12,11 @@ namespace BaconLauncher
     {
         public readonly Profile Profile;
 
+        public ProfileTile()
+        {
+            Profile = null;
+        }
+
         public ProfileTile(Profile profile)
         {
             Profile = profile;
@@ -27,6 +32,18 @@ namespace BaconLauncher
         {
             get => (string)this.GetValue(ImageProperty);
             set => this.SetValue(ImageProperty, value);
+        }
+
+        public static readonly DependencyProperty DropShadowColorProperty
+            = DependencyProperty.Register(nameof(DropShadowColor),
+                          typeof(string),
+                          typeof(ProfileTile),
+                          new PropertyMetadata(default(string)));
+
+        public string DropShadowColor
+        {
+            get => (string)this.GetValue(DropShadowColorProperty);
+            set => this.SetValue(DropShadowColorProperty, value);
         }
     }
 }

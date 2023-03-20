@@ -18,7 +18,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using BaconLauncher.Windows;
-using BaconLauncher.Settings;
+using BaconLauncher.Config;
 
 namespace BaconLauncher
 {
@@ -31,7 +31,7 @@ namespace BaconLauncher
         {
             InitializeComponent();
 
-            SettingsManager.Instance.LoadSettings();
+            ConfigManager.Instance.LoadConfig();
             ProfileManager.Instance.LoadProfiles();
         }
 
@@ -59,6 +59,8 @@ namespace BaconLauncher
                 openFileLocationMenuItem.Click += delegate { Process.Start("explorer.exe", filePath); };
                 contextMenu.Items.Add(openFileLocationMenuItem);
             }
+
+            if (profileTile.Profile.ApplicationSpecificSettings != null && profileTile.Profile.ApplicationSpecificSettings.GetType() == typeof(WorldOfWarcraftSettings))
             {
                 MenuItem clearCacheMenuItem = new MenuItem();
                 clearCacheMenuItem.Header = "Clear Game Cache";
@@ -67,6 +69,7 @@ namespace BaconLauncher
                 clearCacheMenuItem.Click += delegate { ClearGameCache(filePath + "\\Cache"); };
                 contextMenu.Items.Add(clearCacheMenuItem);
             }
+
             {
                 MenuItem editMenuItem = new MenuItem();
                 editMenuItem.Header = "Edit";
@@ -100,56 +103,64 @@ namespace BaconLauncher
             {
                 string rootPath = System.IO.Path.GetDirectoryName(profile.ExecutableLocation);
 
-                if (SettingsManager.Instance.Settings.AutoClearGameCache)
-                    ClearGameCache(rootPath + "\\Cache");
+                /*if (SettingsManager.Instance.Settings.AutoClearGameCache)
+                    ClearGameCache(rootPath + "\\Cache");*/
 
-                if (profile.Expansion >= GameDefines.Expansions.MoP)
+                if (profile.ApplicationSpecificSettings != null && profile.ApplicationSpecificSettings.GetType() == typeof(WorldOfWarcraftSettings))
                 {
-                    // Mop and higher use the /WTF/Config.wtf file for the realmlist
-                    rootPath += "\\WTF";
-                    string realmlistFile = rootPath + "\\Config.wtf";
-
-                    if (Directory.Exists(rootPath) && File.Exists(realmlistFile))
+                    WorldOfWarcraftSettings settings = (WorldOfWarcraftSettings)profile.ApplicationSpecificSettings;
+                    if (settings.Expansion >= GameDefines.Expansions.MoP)
                     {
-                        // load the config file into memory
-                        string[] lines = File.ReadAllLines(realmlistFile);
+                        // Mop and higher use the /WTF/Config.wtf file for the realmlist
+                        rootPath += "\\WTF";
+                        string realmlistFile = rootPath + "\\Config.wtf";
 
-                        // write the config file back without the realm list setting
-                        using (StreamWriter writer = new StreamWriter(realmlistFile, false))
+                        if (Directory.Exists(rootPath) && File.Exists(realmlistFile))
                         {
-                            for (int i = 0; i < lines.Length; ++i)
-                            {
-                                string line = lines[i];
-                                if (line.IndexOf("SET realmlist", StringComparison.OrdinalIgnoreCase) == -1)
-                                    writer.WriteLine(line);
-                            }
+                            // load the config file into memory
+                            string[] lines = File.ReadAllLines(realmlistFile);
 
-                            // Write the new realm list setting
-                            writer.WriteLine("SET realmlist \"" + profile.Realmlist + "\"");
-                        }
-                    }
-                }
-                else
-                {
-                    // Cata and lower use the /data/locale/realmlist.wtf file
-                    rootPath += "\\Data";
-
-                    foreach (string gameLocale in GameDefines.Locales.LookupTable)
-                    {
-                        string localePath = rootPath + "\\" + gameLocale;
-                        string realmlistFile = localePath + "\\realmlist.wtf";
-
-                        if (Directory.Exists(localePath) && File.Exists(realmlistFile))
-                        {
+                            // write the config file back without the realm list setting
                             using (StreamWriter writer = new StreamWriter(realmlistFile, false))
-                                writer.Write("SET realmlist " + profile.Realmlist);
+                            {
+                                for (int i = 0; i < lines.Length; ++i)
+                                {
+                                    string line = lines[i];
+                                    if (line.IndexOf("SET realmlist", StringComparison.OrdinalIgnoreCase) == -1)
+                                        writer.WriteLine(line);
+                                }
+
+                                // Write the new realm list setting
+                                writer.WriteLine("SET realmlist \"" + settings.Realmlist + "\"");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Cata and lower use the /data/locale/realmlist.wtf file
+                        rootPath += "\\Data";
+
+                        foreach (string gameLocale in GameDefines.Locales.LookupTable)
+                        {
+                            string localePath = rootPath + "\\" + gameLocale;
+                            string realmlistFile = localePath + "\\realmlist.wtf";
+
+                            if (Directory.Exists(localePath) && File.Exists(realmlistFile))
+                            {
+                                using (StreamWriter writer = new StreamWriter(realmlistFile, false))
+                                    writer.Write("SET realmlist " + settings.Realmlist);
+                            }
                         }
                     }
                 }
 
-                Process.Start(profile.ExecutableLocation, profile.CommandLineArguments);
+                ProcessStartInfo startInfo = new ProcessStartInfo(profile.ExecutableLocation, profile.CommandLineArguments);
+                startInfo.WorkingDirectory = Directory.GetParent(profile.ExecutableLocation).FullName;
+                //startInfo.WindowStyle = ProcessWindowStyle.Minimized;
 
-                if (SettingsManager.Instance.Settings.CloseLauncherOnGameStart)
+                Process.Start(startInfo);
+
+                if (ConfigManager.Instance.Config.CloseLauncherOnGameStart)
                     Close();
             }
             catch (Exception)
